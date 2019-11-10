@@ -1,6 +1,8 @@
-package com.isteel.recipessearch.Content.Steps;
+package com.isteel.recipessearch.Content.Steps.Ingredients;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Ingredients {
     @SerializedName("id")
@@ -12,10 +14,22 @@ public class Ingredients {
     @SerializedName("image")
     private String mImage;
 
+    @SerializedName("amount")
+    private Amount mAmount;
+
+    public Amount getmAmount() {
+        return mAmount;
+    }
+
+    public void setmAmount(Amount mAmount) {
+        this.mAmount = mAmount;
+    }
+
     public Ingredients() {
     }
 
-    public Ingredients(String mId, String mName, String mImage) {
+    public Ingredients(String mId, String mName, String mImage, Amount mAmount) {
+        this.mAmount = mAmount;
         this.mId = mId;
         this.mName = mName;
         this.mImage = mImage;

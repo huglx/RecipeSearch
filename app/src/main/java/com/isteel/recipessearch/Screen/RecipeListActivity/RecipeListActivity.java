@@ -33,12 +33,13 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         getSupportActionBar().setTitle("Recipe search");
         toolbar.setTitleTextColor(Color.parseColor("#fafafa")); //setting toolbar
 
-        // mRecipeListAdapter = new RecipeListAdapter(new Result());
+        // mRecipeListAdapter = new RecipeAdapter(new Result());
         mSearchView = findViewById(R.id.search_view);
         createSearchListener();
 
         mRecyclerView = findViewById(R.id.view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2,RecyclerView.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
 
         mRecipeListPresenter = new RecipeListPresenter(this, this);
         mRecipeListPresenter.init();

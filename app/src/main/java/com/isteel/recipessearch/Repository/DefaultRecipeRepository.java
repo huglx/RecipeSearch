@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.isteel.recipessearch.Api.ApiFactory;
 import com.isteel.recipessearch.Content.Result;
+import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
+import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 import com.isteel.recipessearch.Content.Steps.ResponseStep;
 
 import java.util.ArrayList;
@@ -45,6 +47,15 @@ public class DefaultRecipeRepository implements RecipeRepository {
     public Observable<List<ResponseStep>> steps(String id) {
         return ApiFactory.getRecipeService()
                 .steps(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @NonNull
+    @Override
+    public Observable<IngredResponse> ingredients(String id) {
+        return ApiFactory.getRecipeService()
+                .ingredients(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -18,7 +18,7 @@ public class RecipePresenter {
 
     public void init(String id){
         RepositoryProvider.provideRecipeRepository()
-                .steps(id)
+                .ingredients(id)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
                 .subscribe(mView::showIngredients, throwable -> Log.i("234444", throwable+""));
     }

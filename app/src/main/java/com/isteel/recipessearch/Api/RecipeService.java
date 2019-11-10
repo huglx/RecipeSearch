@@ -2,6 +2,7 @@ package com.isteel.recipessearch.Api;
 
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Result;
+import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
 import com.isteel.recipessearch.Content.Steps.ResponseStep;
 
 import java.util.List;
@@ -21,4 +22,7 @@ public interface RecipeService {
 
     @GET("{id}/analyzedInstructions?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65")
     Observable<List<ResponseStep>> steps(@Path("id") String id);
+
+    @GET("{id}/ingredientWidget.json?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65")
+    Observable<IngredResponse> ingredients(@Path("id") String id);
 }

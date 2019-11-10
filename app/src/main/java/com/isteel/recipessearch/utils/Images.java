@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 
 import com.isteel.recipessearch.Content.Recipe;
+import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 import com.squareup.picasso.Picasso;
 
 public final class Images {
@@ -29,9 +30,9 @@ public final class Images {
                 .into(imageView);
     }
 
-    public static void loadIngredients(@NonNull ImageView imageView, @NonNull Recipe recipe,
+    public static void loadIngredients(@NonNull ImageView imageView, @NonNull Ingredients ingredients,
                                   @NonNull String size) {
-        loadIngredients(imageView, recipe.getmId(), size);
+        loadIngredients(imageView, ingredients.getmName(), size);
     }
 
     public static void loadIngredients(@NonNull ImageView imageView, @NonNull String name,

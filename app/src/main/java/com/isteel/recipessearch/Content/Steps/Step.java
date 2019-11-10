@@ -1,7 +1,7 @@
 package com.isteel.recipessearch.Content.Steps;
 
 import com.google.gson.annotations.SerializedName;
-import com.isteel.recipessearch.Content.Steps.Ingredients;
+import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 
 import java.util.List;
 
