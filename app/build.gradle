@@ -58,6 +58,9 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
 
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
+    implementation 'com.google.android.material:material:1.0.0'
 
 }

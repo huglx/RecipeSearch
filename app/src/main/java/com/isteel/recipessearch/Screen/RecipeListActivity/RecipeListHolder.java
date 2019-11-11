@@ -39,6 +39,7 @@ public class RecipeListHolder extends RecyclerView.ViewHolder implements View.On
         Log.i("OMOMO", getItemId()+"");
         Intent intent = new Intent(view.getContext(), RecipeActivity.class);
         intent.putExtra("RECIPE_ID", mRecipe.getmId());
+        intent.putExtra("RECIPE_NAME", mRecipe.getmTitle());
 
 
         view.getContext().startActivity(intent);

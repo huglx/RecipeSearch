@@ -1,5 +1,4 @@
 package com.isteel.recipessearch.Content.Steps.Ingredients;
-// TODO make ingredients content
 
 import com.google.gson.annotations.SerializedName;
 
