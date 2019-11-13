@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
 import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.utils.Images;
@@ -27,6 +28,8 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     private RecipePresenter mRecipePresenter;
     private RecipeAdapter mRecipeAdapter;
 
+    @BindView(R.id.toolbarTab)
+    CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.view)
     RecyclerView mRecyclerView;
     @BindView(R.id.toolbar)
@@ -34,7 +37,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     @BindView(R.id.imageToolbar)
     ImageView mImageView;
 
-//    TODO Name toolbar like recipe name. Redesign ingred. item. Add step mode.
+//    TODO Design main page/ adding to fav ones/ step mode
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,10 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
 
         setSupportActionBar(mToolbar);
         mRecipeName = getIntent().getStringExtra("RECIPE_NAME");
-        getSupportActionBar().setTitle(mRecipeName);
-        mToolbar.setTitleTextColor(Color.parseColor("#fafafa")); //setting toolbar
+        //getSupportActionBar().setTitle(mRecipeName);
+        mToolbarLayout.setTitle(mRecipeName);
+        mToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
 

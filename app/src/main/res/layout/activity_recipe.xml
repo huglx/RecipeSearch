@@ -6,47 +6,48 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".Screen.Recipe.RecipeActivity">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Your scrolling content -->
-
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_below="@+id/app_bar"
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/app_bar" />
 
     </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:contentScrim="@color/colorPrimary"
-        app:expandedTitleGravity="top"
-        android:id="@+id/toolbarTab"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-        <ImageView
-            android:id="@+id/imageToolbar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbarTab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_collapseMode="parallax"
-            app:layout_collapseParallaxMultiplier="0.5"/>
+            app:contentScrim="@color/colorAccent"
+            app:expandedTitleGravity="top"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:layout_collapseMode="pin"/>
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/imageToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"
+                 />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_collapseMode="pin" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

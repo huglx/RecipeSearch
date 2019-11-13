@@ -21,6 +21,7 @@
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,5 +29,14 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_star_white_24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp" />
 
 </RelativeLayout>

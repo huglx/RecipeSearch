@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Screen.Recipe.RecipeActivity"></activity>
+        <activity android:name=".Screen.StarredActivity.StarredActivity"></activity>
+        <activity android:name=".Screen.Recipe.RecipeActivity" />
         <activity android:name=".Screen.RecipeListActivity.RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
