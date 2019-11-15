@@ -2,12 +2,14 @@ package com.isteel.recipessearch.Content;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Recipe {
+import io.realm.RealmObject;
+
+public class Recipe extends RealmObject {
     @SerializedName("title")
-    String mTitle;
+    private String mTitle;
 
     @SerializedName("id")
-    String mId;
+    private String mId;
 
     public String getmId() {
         return mId;

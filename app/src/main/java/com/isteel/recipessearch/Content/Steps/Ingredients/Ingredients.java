@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Ingredients {
+    private boolean ifStarred;
+
     @SerializedName("id")
     private String mId;
 
@@ -57,5 +59,13 @@ public class Ingredients {
 
     public void setmImage(String mImage) {
         this.mImage = mImage;
+    }
+
+    public boolean isIfStarred() {
+        return ifStarred;
+    }
+
+    public void setIfStarred(boolean ifStarred) {
+        this.ifStarred = ifStarred;
     }
 }

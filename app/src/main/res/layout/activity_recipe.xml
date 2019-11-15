@@ -19,6 +19,12 @@
             android:layout_below="@+id/app_bar" />
 
     </androidx.core.widget.NestedScrollView>
+    <Button
+        android:text="add to favs"
+        android:layout_gravity="bottom"
+        android:id="@+id/star"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
