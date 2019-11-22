@@ -23,9 +23,6 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
     @BindView(R.id.view)
     RecyclerView mRecyclerView;
 
-    private String mRecipeId;
-    private String mRecipeName;
-
     private StarredPresenter mPresenter;
     private StarredAdapter mAdapter;
 
@@ -39,23 +36,19 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
         mRecyclerView.setHasFixedSize(true);
 
         mPresenter = new StarredPresenter(this, this);
-        getCashedRecipe();
+        getCachedRecipe();
     }
 
-    private void getCashedRecipe() {
-        Realm realm = Realm.getDefaultInstance(); // opens "myrealm.realm"
-        try {
+    private void getCachedRecipe() {
+        // opens "myrealm.realm"
+        try (Realm realm = Realm.getDefaultInstance()) {
             RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll();
             List<Recipe> recipeList = realm.copyFromRealm(recipes);
             mAdapter = new StarredAdapter(recipeList, this);
             mRecyclerView.setAdapter(mAdapter);
-            Toast.makeText(this, ""+recipes.get(0).getmId(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, ""+recipes.get(0).getmId(), Toast.LENGTH_SHORT).show();
+        } catch (Exception ignored) {
 
-        }catch (Exception ex){
-            
-        }
-        finally {
-            realm.close();
         }
     }
 

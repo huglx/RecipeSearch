@@ -10,11 +10,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
 import com.isteel.recipessearch.R;
@@ -23,6 +26,7 @@ import com.isteel.recipessearch.utils.Images;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 
@@ -43,8 +47,8 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     Toolbar mToolbar;
     @BindView(R.id.imageToolbar)
     ImageView mImageView;
-    @BindView(R.id.star)
-    Button mStarButton;
+    @BindView(R.id.action_button)
+    FloatingActionButton mStarButton;
 
 //    TODO Design main page/ adding to fav ones/ step modex
 
@@ -55,10 +59,15 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
         ButterKnife.bind(this);
         mRecipeId = getIntent().getStringExtra("RECIPE_ID");
         mRecipeName = getIntent().getStringExtra("RECIPE_NAME");
+        setFABanimation();
 
         if(starred()) {
-            mStarButton.setEnabled(false);
-        }else setOnStarredListener();
+            mStarButton.setImageDrawable(getDrawable(R.drawable.ic_delete_white_24dp));
+            setOnRemoveListener();
+        }else {
+            mStarButton.setImageDrawable(getDrawable(R.drawable.ic_star_white_24dp));
+            setOnStarredListener();
+        }
 
         setSupportActionBar(mToolbar);
         //getSupportActionBar().setTitle(mRecipeName);
@@ -73,34 +82,64 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
 
     }
 
+    private void setFABanimation() {
+
+    }
+
+    private void setOnRemoveListener() {
+        mStarButton.setOnClickListener(view -> {
+            // opens "myrealm.realm"
+            try (Realm realm = Realm.getDefaultInstance()) {
+                realm.beginTransaction();
+                RealmObject recipe = realm.where(Recipe.class).equalTo("mId", mRecipeId).findFirst();
+                recipe.deleteFromRealm();
+                realm.commitTransaction();
+
+                Toast.makeText(this, "Your starred recipe was deleted", Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                Toast.makeText(this, "Something went wrong, retry later.", Toast.LENGTH_SHORT).show();
+            }
+            mStarButton.setImageDrawable(getDrawable(R.drawable.ic_star_white_24dp));
+            setOnStarredListener();
+        });
+    }
+
     private boolean starred() {
-        Realm realm = Realm.getDefaultInstance();// opens "myrealm.realm"
         boolean flag = false;
+        Realm realm = Realm.getDefaultInstance();// opens "myrealm.realm"
         RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll();
+
         for (Recipe recipe : recipes) {
             if (recipe.getmId().equals(mRecipeId)) {
                 flag = true;
                 Log.i("Starredfunc", flag+"");
             }
         }
+
         Log.i("Starredfunc", flag+"");
         return flag;
     }
 
+
+
     private void setOnStarredListener() {
         mStarButton.setOnClickListener(view -> {
-            mStarButton.setEnabled(false);
-            Realm realm = Realm.getDefaultInstance();// opens "myrealm.realm"
-            try {
+            // opens "myrealm.realm"
+            try (Realm realm = Realm.getDefaultInstance()) {
                 realm.beginTransaction();
                 Recipe recipe = realm.createObject(Recipe.class);
                 recipe.setmId(mRecipeId);
                 recipe.setmTitle(mRecipeName);
                 realm.commitTransaction();
-            } finally {
-                realm.close();
+
+                Toast.makeText(this, "Your starred recipe was added", Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                Toast.makeText(this, "Something went wrong, retry later.", Toast.LENGTH_SHORT).show();
             }
+            mStarButton.setImageDrawable(getDrawable(R.drawable.ic_delete_white_24dp));
+            setOnRemoveListener();
         });
+
     }
 
     @Override

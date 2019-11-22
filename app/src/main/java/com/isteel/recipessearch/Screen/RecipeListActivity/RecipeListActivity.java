@@ -4,30 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.isteel.recipessearch.Content.Result;
 import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.Screen.StarredActivity.StarredActivity;
+import com.isteel.recipessearch.Screen.general.LoadingDialog;
+import com.isteel.recipessearch.Screen.general.LoadingView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
 //todo appearance of recipe activity(color of toolbar)
 
 public class RecipeListActivity extends AppCompatActivity implements RecipeListView{
     RecipeListPresenter mRecipeListPresenter;
     RecipeListAdapter mRecipeListAdapter;
+
+    private LoadingView mLoadingView;
 
     @BindView(R.id.view)
     RecyclerView mRecyclerView;
@@ -43,6 +53,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
         ButterKnife.bind(this);
+        mLoadingView = LoadingDialog.view(getSupportFragmentManager());
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Recipe search");
@@ -51,21 +62,32 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         // mRecipeListAdapter = new RecipeAdapter(new Result());
         createSearchListener();
         setButtonListener();
-
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2,RecyclerView.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setHasFixedSize(true);
 
         mRecipeListPresenter = new RecipeListPresenter(this, this);
         mRecipeListPresenter.init();
+    }
 
-
-
+    private void setFABanimation() {
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.fab_rotate);
+        mActionButton.startAnimation(anim);
     }
 
     private void setButtonListener() {
         mActionButton.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), StarredActivity.class);
-            startActivity(intent);
+        new CountDownTimer(500, 500) { //timer for a small delay in animation to make it look more nicer
+
+            public void onTick(long millisUntilFinished) {
+                setFABanimation();
+                mActionButton.setEnabled(false);
+            }
+            public void onFinish() {
+                mActionButton.setEnabled(true);
+                Intent intent = new Intent(view.getContext(), StarredActivity.class);
+                startActivity(intent);
+            }
+        }.start();
         });
     }
 
@@ -92,6 +114,15 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     }
 
     @Override
+    public void error() {
+        Snackbar snackbar = Snackbar.make(mRecyclerView,"Something went wrong", Snackbar.LENGTH_LONG)
+                .setAction("Try again", action -> mRecipeListPresenter.init());
+        snackbar.setDuration(4000);
+        snackbar.show();
+        //Log.i("Error RLA", throwable.getMessage()+"");
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
 
@@ -99,5 +130,15 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         mSearchView.setMenuItem(item);
 
         return true;
+    }
+
+    @Override
+    public void hideLoading() {
+        mLoadingView.hideLoading();
+    }
+
+    @Override
+    public void showLoading(Disposable disposable) {
+        mLoadingView.showLoading(disposable);
     }
 }

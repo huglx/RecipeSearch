@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RecipesSearch</string>
+    <string name="loading">Making Coffee... I Meant Working</string>
 </resources>

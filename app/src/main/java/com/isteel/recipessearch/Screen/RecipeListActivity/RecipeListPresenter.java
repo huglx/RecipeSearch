@@ -19,8 +19,10 @@ public class RecipeListPresenter {
     public void init(){
         RepositoryProvider.provideRecipeRepository()
                 .recipe()
+                .doOnSubscribe(mView::showLoading)
+                .doOnTerminate(mView::hideLoading)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
-                .subscribe(mView::show, throwable -> Log.i("234444", throwable+""));
+                .subscribe(mView::show, throwable -> mView.error());
     }
 
     public void querySearch(String query){
