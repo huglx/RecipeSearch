@@ -1,15 +1,39 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/secondary</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+
     </style>
+
     <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
         <item name="android:textColor">@android:color/transparent</item>
         <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="TitleTextStyle">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textColor">@color/colorShadow</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="SubTitleTextStyle">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="FloatingActionButton">
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:tint">@color/secondary</item>
+    </style>
+
+    <style name="TootBarTextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

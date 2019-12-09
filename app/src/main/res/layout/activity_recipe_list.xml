@@ -11,11 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorAccent"/>
+        <include layout="@layout/toolbar"/>
 
         <com.miguelcatalan.materialsearchview.MaterialSearchView
             android:id="@+id/search_view"
@@ -24,14 +20,23 @@
 
     </FrameLayout>
 
+    <Button
+        android:text="select"
+        android:layout_centerInParent="true"
+        android:id="@+id/select_dialog"
+        android:layout_below="@+id/toolbar_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/toolbar_container"
+        android:layout_below="@id/select_dialog"
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/action_button"
+        style="@style/FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

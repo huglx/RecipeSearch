@@ -8,6 +8,9 @@ public class Recipe extends RealmObject {
     @SerializedName("title")
     private String mTitle;
 
+    @SerializedName("readyInMinutes")
+    private String mTime;
+
     @SerializedName("id")
     private String mId;
 
@@ -27,9 +30,18 @@ public class Recipe extends RealmObject {
         this.mTitle = mTitle;
     }
 
-    public Recipe(String mTitle, String mId) {
+    public Recipe(String mTitle, String mId, String mTime) {
         this.mTitle = mTitle;
         this.mId = mId;
+        this.mTime = mTime;
+    }
+
+    public String getmTime() {
+        return mTime;
+    }
+
+    public void setmTime(String mTime) {
+        this.mTime = mTime;
     }
 
     public Recipe() {

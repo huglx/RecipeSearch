@@ -37,7 +37,7 @@ public class LoadingDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(STYLE_NO_TITLE, getTheme());
+        setStyle(STYLE_NORMAL, getTheme());
         setCancelable(false);
     }
 

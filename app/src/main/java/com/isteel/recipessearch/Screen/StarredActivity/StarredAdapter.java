@@ -28,7 +28,7 @@ public class StarredAdapter extends RecyclerView.Adapter<StarredHolder>{
     @Override
     public StarredHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new StarredHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_item, parent, false));
+                .inflate(R.layout.recipe_item, parent, false), mContext);
     }
 
     @Override

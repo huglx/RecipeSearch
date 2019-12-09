@@ -1,10 +1,16 @@
 package com.isteel.recipessearch.Screen.StarredActivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.isteel.recipessearch.Content.Recipe;
@@ -19,11 +25,12 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class StarredActivity extends AppCompatActivity implements StarredView{
+public class StarredActivity extends AppCompatActivity{
     @BindView(R.id.view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
-    private StarredPresenter mPresenter;
     private StarredAdapter mAdapter;
 
     @Override
@@ -32,10 +39,17 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
         setContentView(R.layout.activity_starred);
         ButterKnife.bind(this);
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2,RecyclerView.VERTICAL, false));
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
+
+        mToolbar.setTitleTextColor(Color.parseColor("#fafafa"));
+        getSupportActionBar().setTitle("Your starred recipes");
+
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setHasFixedSize(true);
 
-        mPresenter = new StarredPresenter(this, this);
         getCachedRecipe();
     }
 
@@ -48,12 +62,18 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
             mRecyclerView.setAdapter(mAdapter);
             // Toast.makeText(this, ""+recipes.get(0).getmId(), Toast.LENGTH_SHORT).show();
         } catch (Exception ignored) {
-
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
-    @Override
-    public void show(Result recipes) {
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

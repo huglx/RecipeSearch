@@ -1,7 +1,5 @@
 package com.isteel.recipessearch.Screen.Recipe;
 
-import android.util.Log;
-
 import com.isteel.recipessearch.Repository.RepositoryProvider;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
@@ -19,7 +17,18 @@ public class RecipePresenter {
     public void init(String id){
         RepositoryProvider.provideRecipeRepository()
                 .ingredients(id)
+                .doOnSubscribe(mView::showLoading)
+                .doOnTerminate(mView::hideLoading)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
-                .subscribe(mView::showIngredients, throwable -> Log.i("234444", throwable+""));
+                .subscribe(mView::showIngredients, throwable ->  mView.error());
+    }
+
+    public void initStepsMode(String id){
+        RepositoryProvider.provideRecipeRepository()
+                .steps(id)
+                .doOnSubscribe(mView::showLoading)
+                .doOnTerminate(mView::hideLoading)
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
+                .subscribe(mView::initStepsMode, throwable ->  mView.error());
     }
 }

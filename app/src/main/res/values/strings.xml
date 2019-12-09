@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">RecipesSearch</string>
     <string name="loading">Making Coffee... I Meant Working</string>
+    <string name="cook_time">Expected time of cooking: %1$s min.</string>
+    <string name="step_by_step">Step-by-step</string>
+    <string name="step_number">step_number</string>
+    <string name="step_body">step_body</string>
 </resources>
