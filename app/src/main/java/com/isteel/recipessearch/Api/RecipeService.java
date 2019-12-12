@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface RecipeService {
 
-    @GET("search?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65&number=100")
+    @GET("search?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65&number=50")
     Observable<Result> recipe();
 
     @GET("search?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65&number=100")

@@ -4,7 +4,7 @@ import com.isteel.recipessearch.Content.Result;
 import com.isteel.recipessearch.Screen.general.LoadingView;
 
 public interface RecipeListView extends LoadingView {
-    void show(Result recipes);
+    void showRecipeList(Result recipes);
 
     void error();
 }

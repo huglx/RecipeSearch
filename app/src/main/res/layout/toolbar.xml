@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
-    app:popupTheme="@style/Widget.AppCompat.Toolbar"
+    style="@style/ThemeOverlay.AppCompat.ActionBar"
     app:titleTextAppearance="@style/TootBarTextStyle"
-    app:layout_scrollFlags="enterAlways"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" />
 

@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorOnSecondary">@color/secondary</item>
         <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
 
     </style>
 
@@ -34,6 +36,10 @@
     <style name="TootBarTextStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
     </style>
 
 </resources>

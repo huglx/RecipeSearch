@@ -7,8 +7,6 @@ import com.isteel.recipessearch.utils.TypeSearchPrefence;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
-import java.lang.reflect.Type;
-
 public class RecipeListPresenter {
     RecipeListView mView;
     RecipeListActivity mRecipeListActivity;
@@ -25,15 +23,13 @@ public class RecipeListPresenter {
                 .doOnSubscribe(mView::showLoading)
                 .doOnTerminate(mView::hideLoading)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
-                .subscribe(mView::show, throwable -> mView.error());
+                .subscribe(mView::showRecipeList, throwable -> mView.error());
     }
 
     public void querySearch(String query){
-        Log.i("HAWK", TypeSearchPrefence.getType());
-
         RepositoryProvider.provideRecipeRepository()
                 .recipe(query)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
-                .subscribe(mView::show, throwable -> Log.i("234444", throwable+""));
+                .subscribe(mView::showRecipeList, throwable -> Log.i("234444", throwable+""));
     }
 }
