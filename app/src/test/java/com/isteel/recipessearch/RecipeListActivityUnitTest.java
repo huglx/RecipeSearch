@@ -2,31 +2,28 @@ package com.isteel.recipessearch;
 
 import androidx.annotation.NonNull;
 
-import com.isteel.recipessearch.Api.RecipeService;
-import com.isteel.recipessearch.Content.Result;
-import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
-import com.isteel.recipessearch.Content.Steps.ResponseStep;
+import com.isteel.recipessearch.Content.RecipeResponse;
 import com.isteel.recipessearch.Repository.DefaultRecipeRepository;
 import com.isteel.recipessearch.Repository.RepositoryProvider;
 import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListActivity;
 import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListPresenter;
 import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListView;
+import com.isteel.recipessearch.utils.KeyValueStorage;
+import com.isteel.recipessearch.utils.TypeSearchPrefence;
+import com.orhanobut.hawk.Hawk;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 
 import static junit.framework.Assert.assertNotNull;
-import static org.junit.Assert.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -39,24 +36,32 @@ public class ExampleUnitTest {
     RecipeListView mView;
     RecipeListPresenter mPresenter;
     public Throwable throwable;
+    MyApplication myApplication;
 
-    Result result;
+    RecipeResponse recipeResponse;
     Disposable disposable;
+    KeyValueStorage mStorage;
+
 
     public ExampleUnitTest() {
     }
 
     @Before
     public void setUp() throws Exception {
+        myApplication = Mockito.mock(MyApplication.class);
+        myApplication.onCreate();
+
        // initMocks(this);
         disposable = Disposables.empty();
+        RepositoryProvider.setmKeyValueStorage(new KeyValueTest());
         RepositoryProvider.setRecipeRepository(new TestRepo());
 
         mView = Mockito.mock(RecipeListView.class);
         activity = Mockito.mock(RecipeListActivity.class);
 
         mPresenter = new RecipeListPresenter(mView, activity);
-        result = Mockito.mock(Result.class);
+        recipeResponse = Mockito.mock(RecipeResponse.class);
+
     }
 
     @Test
@@ -67,6 +72,7 @@ public class ExampleUnitTest {
     @Test
     public void testError() throws Exception{
         mPresenter.init();
+        //TypeSearchPrefence.setType("vegetarian");
 
         Mockito.verify(mView,Mockito.times(1)).error();
     }
@@ -81,7 +87,7 @@ public class ExampleUnitTest {
     private class TestR extends DefaultRecipeRepository{
         @NonNull
         @Override
-        public Observable<Result> recipe() {
+        public Observable<RecipeResponse> recipe(String diet) {
             return Observable.empty();
         }
     }
