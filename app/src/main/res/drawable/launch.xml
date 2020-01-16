@@ -2,5 +2,5 @@
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/colorAccent">
-    <item android:drawable="@drawable/launch.png"/>
+    <item android:drawable="@drawable/launch_pic"/>
 </ripple>

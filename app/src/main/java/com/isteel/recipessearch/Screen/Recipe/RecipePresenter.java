@@ -21,6 +21,14 @@ public class RecipePresenter {
                 .doOnTerminate(mView::hideLoading)
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
                 .subscribe(mView::showIngredients, throwable ->  mView.error());
+
+        RepositoryProvider.provideRecipeRepository()
+                .recipeInfo(id)
+                .doOnSubscribe(mView::showLoading)
+                .doOnTerminate(mView::hideLoading)
+                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(mRecipeListActivity)))
+                .subscribe(mView::showRecipeInfo, throwable ->  mView.error());
+
     }
 
     public void initStepsMode(String id){

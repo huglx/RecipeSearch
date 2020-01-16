@@ -6,9 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.isteel.recipessearch.Content.Recipe;
-import com.isteel.recipessearch.Content.Result;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
 import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 import com.isteel.recipessearch.R;

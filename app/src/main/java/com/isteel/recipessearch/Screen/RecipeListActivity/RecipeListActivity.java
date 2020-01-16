@@ -28,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.isteel.recipessearch.Content.Result;
+import com.isteel.recipessearch.Content.RecipeResponse;
 import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.Screen.StarredActivity.StarredActivity;
 import com.isteel.recipessearch.Screen.general.LoadingDialog;
@@ -95,21 +95,9 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 
     private void setButtonListener() {
         mActionButton.setOnClickListener(view -> {
-        new CountDownTimer(500, 500) { //timer for a small delay in animation to make it look more nicer
 
-            public void onTick(long millisUntilFinished) {
-                Animation anim = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_rotate);
-                mActionButton.startAnimation(anim);
-
-                mActionButton.setEnabled(false);
-            }
-            public void onFinish() {
-                mActionButton.setEnabled(true);
-
-                Intent intent = new Intent(view.getContext(), StarredActivity.class);
-                startActivity(intent);
-            }
-        }.start();
+            Intent intent = new Intent(view.getContext(), StarredActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -151,7 +139,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     }
 
     @Override
-    public void showRecipeList(Result recipes) {
+    public void showRecipeList(RecipeResponse recipes) {
         mRecipeListAdapter = new RecipeListAdapter(recipes, this);
         mRecyclerView.setAdapter(mRecipeListAdapter);
     }

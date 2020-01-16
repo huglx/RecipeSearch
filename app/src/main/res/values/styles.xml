@@ -9,9 +9,8 @@
         <item name="colorOnSecondary">@color/secondary</item>
         <item name="android:fontFamily">@font/rubik_regular</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-
-
     </style>
+
 
     <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
         <item name="android:textColor">@android:color/transparent</item>
@@ -40,6 +39,12 @@
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="DialogTheme" parent="android:Theme.Dialog">
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transpr</item>
     </style>
 
 </resources>

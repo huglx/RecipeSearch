@@ -8,14 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.isteel.recipessearch.Content.Recipe;
-import com.isteel.recipessearch.Content.Result;
+import com.isteel.recipessearch.Content.RecipeResponse;
+import com.isteel.recipessearch.Content.Steps.ResponseStep;
 import com.isteel.recipessearch.R;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListHolder>{
-    Result mResult;
+    RecipeResponse mResult;
     private Context mContext;
 
-    public RecipeListAdapter(@NonNull Result mResult, @NonNull Context context) {
+    public RecipeListAdapter(@NonNull RecipeResponse mResult, @NonNull Context context) {
         this.mResult = mResult;
         mContext = context;
     }

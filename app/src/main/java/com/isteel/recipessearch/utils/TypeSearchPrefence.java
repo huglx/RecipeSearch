@@ -1,19 +1,27 @@
 package com.isteel.recipessearch.utils;
 
-import androidx.annotation.NonNull;
-
 import com.orhanobut.hawk.Hawk;
 
-import java.lang.reflect.Type;
-
-public class TypeSearchPrefence {
+public class TypeSearchPrefence implements KeyValueStorage {
     private static final String TYPE = "type";
+    public static final String TYPE_DEF = "";
+    public static final String TYPE_VEG = "vegetarian";
 
-    public static String getType() {
-        return Hawk.get(TYPE, "");
+    public String getType() {
+        return (String) Hawk.get(TYPE, "");
     }
 
-    public static void setType(@NonNull String type) {
+    public void setType(String type) {
         Hawk.put(TYPE, type);
+    }
+
+    public int getCurrentType() {
+        if (getType().equals("")) {
+            return 0;
+        }
+        if (getType().equals(TYPE_VEG)) {
+            return 1;
+        }
+        return -1;
     }
 }

@@ -30,8 +30,11 @@ import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.Screen.Recipe.BottomSheet.BottomSheetFragment;
 import com.isteel.recipessearch.Screen.general.LoadingDialog;
 import com.isteel.recipessearch.Screen.general.LoadingView;
+import com.isteel.recipessearch.utils.AlgorithmUtils;
 import com.isteel.recipessearch.utils.Images;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -125,36 +128,44 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
             recipe.setmId(mRecipeId);
             recipe.setmTitle(mRecipeName);
             recipe.setmTime(mRecipeTime);
+            recipe.setWhenAdded(new Date());
 
             realm.commitTransaction();
             Toast.makeText(this, "Your starred recipe was added", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Toast.makeText(this, "Something went wrong, retry later.", Toast.LENGTH_SHORT).show();
-            Log.i("Error", e.getMessage());
+            Log.i("INFO", e.getMessage());
         }
     }
 
     private boolean alreadyAdded() {
-        boolean flag = false;
-        Realm realm = Realm.getDefaultInstance();// opens "myrealm.realm"
-        RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll();
+        boolean flag = true;
+        try {
 
-        for (Recipe recipe : recipes) {
-            if (recipe.getmId().equals(mRecipeId)) {
-                flag = true;
-                Log.i("Starredfunc", flag+"");
+            Realm realm = Realm.getDefaultInstance();// opens "myrealm.realm"
+            RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll().sort("mId");
+            List<Recipe> recipeList = realm.copyFromRealm(recipes);
+            int index = AlgorithmUtils.binarySearch(recipeList, Integer.parseInt(mRecipeId));
+            if(index == -1){
+                flag = false;
             }
-        }
 
-        Log.i("Starredfunc", flag+"");
-        return flag;
+            Log.i("Starredfunc", flag + "");
+            return flag;
+        }catch (Exception e){
+            Log.i("INFO", e.getMessage());
+
+            return flag;
+        }
     }
 
     @Override
     public void initStepsMode(List<ResponseStep> steps) {
-        BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(steps.get(0));
+        BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("content", (Serializable) steps.get(0));
+        bottomSheetFragment.setArguments(bundle);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-        Log.i("initStepsMode", steps.get(0).getmSteps().get(0).getmStep());
     }
 
     @Override
@@ -163,6 +174,11 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
         mRecipeAdapter =  new RecipeAdapter(responses, this);
         mRecyclerView.setAdapter(mRecipeAdapter);
         Images.loadRecipe(mImageView, mRecipeId, "636x393");
+    }
+
+    @Override
+    public void showRecipeInfo(Recipe recipe) {
+
     }
 
     @Override

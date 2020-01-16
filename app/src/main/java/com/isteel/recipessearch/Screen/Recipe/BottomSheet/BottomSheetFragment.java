@@ -35,10 +35,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     private IngredResponse responses;
     private BottomSheetAdapter mBottomSheetAdapter;
 
-    public BottomSheetFragment(ResponseStep mResult) {
-        this.mResult = mResult;
-    }
-
     public BottomSheetFragment() {
         // Required empty public constructor
     }
@@ -53,6 +49,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bottom_sheet_dialog, container, false);
         ButterKnife.bind(this, view);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            this.mResult = (ResponseStep) bundle.getSerializable("content");
+        }
 
         //  mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL, false));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

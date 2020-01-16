@@ -2,9 +2,10 @@ package com.isteel.recipessearch.Content.Steps;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ResponseStep {
+public class ResponseStep implements Serializable {
     @SerializedName("steps")
     private List<Step> mSteps;
 

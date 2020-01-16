@@ -2,10 +2,15 @@ package com.isteel.recipessearch.Screen.general;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.view.Window;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -21,6 +26,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import io.reactivex.disposables.Disposable;
 
 public class LoadingDialog extends DialogFragment {
+    ProgressBar mProgressBar;
+
 
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
@@ -38,15 +45,30 @@ public class LoadingDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, getTheme());
-        setCancelable(false);
+        setCancelable(true);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getActivity())
-                .setView(View.inflate(getActivity(), R.layout.dialog_loading, null))
-                .create();
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_loading, null);
+        Drawable drawable = getResources().getDrawable(R.drawable.progress_bar, null);
+
+        this.mProgressBar = view.findViewById(R.id.progress_circular);
+        this.mProgressBar.setIndeterminateDrawable(drawable);
+        this.mProgressBar.setIndeterminate(true);
+
+        //return new Builder(getActivity(), C1335R.style.DialogTheme).setView(view).create();
+        Dialog alertDialog = new Dialog(getActivity());
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.setContentView(view);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        return alertDialog;
+
+       /* return new AlertDialog.Builder(getActivity(), R.style.DialogTheme)
+                .setView(view)
+                .create();*/
     }
 
     private static class LoadingDialogView implements LoadingView {

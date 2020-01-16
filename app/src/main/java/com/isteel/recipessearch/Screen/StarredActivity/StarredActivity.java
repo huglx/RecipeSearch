@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.isteel.recipessearch.Content.Recipe;
-import com.isteel.recipessearch.Content.Result;
 import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListAdapter;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,12 +57,16 @@ public class StarredActivity extends AppCompatActivity{
     private void getCachedRecipe() {
         // opens "myrealm.realm"
         try (Realm realm = Realm.getDefaultInstance()) {
-            RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll();
+            RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll().sort("whenAdded");
             List<Recipe> recipeList = realm.copyFromRealm(recipes);
+            Log.i("INFO", Arrays.toString(recipeList.toArray()));
+
             mAdapter = new StarredAdapter(recipeList, this);
             mRecyclerView.setAdapter(mAdapter);
             // Toast.makeText(this, ""+recipes.get(0).getmId(), Toast.LENGTH_SHORT).show();
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Log.i("INFO", e.getMessage());
+
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }

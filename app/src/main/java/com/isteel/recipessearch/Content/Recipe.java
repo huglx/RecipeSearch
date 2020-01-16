@@ -2,9 +2,14 @@ package com.isteel.recipessearch.Content;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 
 public class Recipe extends RealmObject {
+    @SerializedName("healthScore")
+    private String healthScore;
+
     @SerializedName("title")
     private String mTitle;
 
@@ -13,6 +18,8 @@ public class Recipe extends RealmObject {
 
     @SerializedName("id")
     private String mId;
+
+    private Date whenAdded;
 
     public String getmId() {
         return mId;
@@ -45,5 +52,21 @@ public class Recipe extends RealmObject {
     }
 
     public Recipe() {
+    }
+
+    public String getHealthScore() {
+        return healthScore;
+    }
+
+    public void setHealthScore(String healthScore) {
+        this.healthScore = healthScore;
+    }
+
+    public Date getWhenAdded() {
+        return whenAdded;
+    }
+
+    public void setWhenAdded(Date whenAdded) {
+        this.whenAdded = whenAdded;
     }
 }

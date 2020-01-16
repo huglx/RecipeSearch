@@ -2,7 +2,6 @@ package com.isteel.recipessearch;
 
 import androidx.annotation.NonNull;
 
-import com.isteel.recipessearch.Api.RecipeService;
 import com.isteel.recipessearch.Content.Result;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
 import com.isteel.recipessearch.Content.Steps.ResponseStep;

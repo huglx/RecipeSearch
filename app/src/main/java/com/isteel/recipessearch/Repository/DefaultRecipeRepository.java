@@ -3,7 +3,8 @@ package com.isteel.recipessearch.Repository;
 import androidx.annotation.NonNull;
 
 import com.isteel.recipessearch.Api.ApiFactory;
-import com.isteel.recipessearch.Content.Result;
+import com.isteel.recipessearch.Content.Recipe;
+import com.isteel.recipessearch.Content.RecipeResponse;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
 import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 import com.isteel.recipessearch.Content.Steps.ResponseStep;
@@ -24,9 +25,9 @@ public class DefaultRecipeRepository implements RecipeRepository {
 
     @NonNull
     @Override
-    public Observable<Result> recipe() {
+    public Observable<RecipeResponse> recipe(String diet) {
         return ApiFactory.getRecipeService()
-                .recipe()
+                .recipe(diet)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
@@ -34,9 +35,19 @@ public class DefaultRecipeRepository implements RecipeRepository {
 
     @NonNull
     @Override
-    public Observable<Result> recipe(String query) {
+    public Observable<RecipeResponse> recipe(String query, String diet) {
         return ApiFactory.getRecipeService()
-                .recipe(query)
+                .recipe(query, diet)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
+
+    @NonNull
+    @Override
+    public Observable<Recipe> recipeInfo(String id) {
+        return ApiFactory.getRecipeService()
+                .recipeInfo(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
