@@ -20,8 +20,19 @@
 
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.google.android.material.button.MaterialButton
+        android:layout_alignParentEnd="true"
+        app:icon="@drawable/ic_filter_list_white_24dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/diet_picker"
+        android:layout_width="50dp"
+        android:layout_marginEnd="13dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_container"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/diet_picker"
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

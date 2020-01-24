@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -24,19 +27,25 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.RecipeResponse;
 import com.isteel.recipessearch.R;
+import com.isteel.recipessearch.Repository.RepositoryProvider;
 import com.isteel.recipessearch.Screen.StarredActivity.StarredActivity;
 import com.isteel.recipessearch.Screen.general.LoadingDialog;
 import com.isteel.recipessearch.Screen.general.LoadingView;
+import com.isteel.recipessearch.utils.KeyValueStorage;
 import com.isteel.recipessearch.utils.TypeSearchPrefence;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +56,9 @@ import io.reactivex.disposables.Disposable;
 public class RecipeListActivity extends AppCompatActivity implements RecipeListView, NavigationView.OnNavigationItemSelectedListener {
     RecipeListPresenter mRecipeListPresenter;
     RecipeListAdapter mRecipeListAdapter;
+    private KeyValueStorage mStorage = RepositoryProvider.getmKeyValueStorage();
+    RecipeResponse mRecipeResponse = new RecipeResponse();
+    List<Recipe> recipes = new ArrayList<>();
 
     private LoadingView mLoadingView;
 
@@ -62,10 +74,17 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     FloatingActionButton mActionButton;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+//    @BindView(R.id.error_screen)
+    AppCompatImageView mError;
 
+    @OnClick(R.id.diet_picker)
+    public void diet() {
+        setPicker();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
         ButterKnife.bind(this);
@@ -75,43 +94,47 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         setButtonListener();
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("Recipes");
         mToolbar.setTitleTextColor(Color.parseColor("#ffffff")); //setting toolbar
         // mRecipeListAdapter = new RecipeAdapter(new Result());
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
-        mDrawerLayout.setScrimColor(Color.parseColor("#fafafa"));
+        mDrawerLayout.setScrimColor(Color.parseColor("#000000ff"));
         toggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setHasFixedSize(true);
+        mRecipeResponse.setmRecipe(recipes);
+        mRecipeListAdapter = new RecipeListAdapter(mRecipeResponse, this);
+        mRecyclerView.setAdapter(mRecipeListAdapter);
 
-        mRecipeListPresenter = new RecipeListPresenter(this, this);
+        LifecycleOwner lifecycleOwner = this;
+        mRecipeListPresenter = new RecipeListPresenter(this, lifecycleOwner);
         mRecipeListPresenter.init();
     }
 
     private void setButtonListener() {
         mActionButton.setOnClickListener(view -> {
-
             Intent intent = new Intent(view.getContext(), StarredActivity.class);
             startActivity(intent);
         });
     }
 
-   /* private void setSelector() {
+    private void setPicker() {
         AlertDialog.Builder builder = new AlertDialog.Builder(RecipeListActivity.this);
         builder.setTitle("Select Option");
-        builder.setItems(R.array.select_items, (dialog, which) -> {
-            Log.e("value is", "" + which);
+        builder.setSingleChoiceItems(R.array.select_items, mStorage.getCurrentType(), (dialog, which) -> {
             switch (which) {
                 case 0:
-                    TypeSearchPrefence.setType("Def");
+                    mStorage.setType(TypeSearchPrefence.TYPE_DEF);
+                    mRecipeListPresenter.init();
                     break;
                 case 1:
-                    TypeSearchPrefence.setType("Vegi");
+                    mStorage.setType(TypeSearchPrefence.TYPE_VEG);
+                    mRecipeListPresenter.init();
                     break;
                 case 2:
                     break;
@@ -120,7 +143,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
             }
         });
         builder.show();
-    }*/
+    }
 
     private void createSearchListener() {
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
@@ -136,17 +159,38 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
                 return false;
             }
         });
+        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                mRecipeListPresenter.init();
+            }
+        });
+
     }
 
     @Override
     public void showRecipeList(RecipeResponse recipes) {
-        mRecipeListAdapter = new RecipeListAdapter(recipes, this);
-        mRecyclerView.setAdapter(mRecipeListAdapter);
+
+        if(recipes.getmRecipe() != null) {
+            mRecipeResponse.getmRecipe().clear();
+            mRecipeResponse.setmRecipe(recipes.getmRecipe());
+            mRecyclerView.getLayoutManager().scrollToPosition(0);
+            mRecipeListAdapter.notifyDataSetChanged();
+        }else error();
     }
 
     @Override
-    public void error() {
-        Snackbar snackbar = Snackbar.make(mRecyclerView,"Something went wrong", Snackbar.LENGTH_LONG)
+    public void error() {/*
+        mRecyclerView.setVisibility(View.GONE);
+        mActionButton.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);*/
+        Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                 .setAction("Try again", action -> mRecipeListPresenter.init());
         snackbar.setDuration(4000);
         snackbar.show();
@@ -175,6 +219,30 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.nav_starred:
+                intent = new Intent(this, StarredActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_about:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+        return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
+        }else if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }

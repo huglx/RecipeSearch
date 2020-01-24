@@ -3,7 +3,7 @@ package com.isteel.recipessearch.utils;
 public interface KeyValueStorage {
     int getCurrentType();
 
-    String getType();
+     String getType();
 
-    void setType(String str);
+     void setType(String str);
 }

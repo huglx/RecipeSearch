@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">RecipesSearch</string>
     <string name="loading">Making Coffee... I Meant Working</string>
-    <string name="cook_time">Expected time of cooking: %1$s min.</string>
+    <string name="cook_time">Under %1$s min.</string>
     <string name="step_by_step">Step-by-step</string>
     <string name="step_number">step_number</string>
     <string name="step_body">step_body</string>
+    <string name="error">Something went wrong</string>
     <string name="navigation_drawer_open">Drawer open</string>
     <string name="navigation_drawer_close">Drawer close</string>
+    <string name="ingredients_value">ingredients value</string>
+    <string name="ingredient">ingredient</string>
+    <string name="servings">%1$s\'s Ingredients \nFor %2$s servings</string>
+    <string name="open_starred_recipes">Open Starred Recipes</string>
+    <string name="about">About</string>
+    <string name="text_about">This app is made by young russian developer</string>
+    <string name="email">email</string>
 </resources>

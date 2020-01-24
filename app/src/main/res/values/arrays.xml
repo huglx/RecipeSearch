@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="select_items">
-        <item>Def</item>
-        <item>Veg</item>
+        <item>Default</item>
+        <item>Vegetarian</item>
     </string-array>
 </resources>

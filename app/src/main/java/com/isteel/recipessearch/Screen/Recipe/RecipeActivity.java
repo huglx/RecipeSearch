@@ -3,28 +3,25 @@ package com.isteel.recipessearch.Screen.Recipe;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
-import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 import com.isteel.recipessearch.Content.Steps.ResponseStep;
 import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.Screen.Recipe.BottomSheet.BottomSheetFragment;
@@ -52,6 +49,8 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     private String mRecipeId;
     private String mRecipeName;
     private String mRecipeTime;
+    private String mRecipeServings;
+
 
     IngredResponse responses;
 
@@ -66,6 +65,8 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     Toolbar mToolbar;
     @BindView(R.id.imageToolbar)
     ImageView mImageView;
+    @BindView(R.id.servings)
+    TextView mServingsTV;
     @BindView(R.id.stepsMode)
     ExtendedFloatingActionButton mStepsButton;
 
@@ -86,10 +87,10 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
         ButterKnife.bind(this);
         mLoadingView = LoadingDialog.view(getSupportFragmentManager());
 
-
         mRecipeId = getIntent().getStringExtra("RECIPE_ID");
         mRecipeName = getIntent().getStringExtra("RECIPE_NAME");
         mRecipeTime = getIntent().getStringExtra("RECIPE_TIME");
+        mRecipeServings = getIntent().getStringExtra("RECIPE_SERVINGS");
 
         setSupportActionBar(mToolbar);
         //getSupportActionBar().setTitle(mRecipeName);
@@ -109,6 +110,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
                 realm.beginTransaction();
 
                 RealmObject recipe = realm.where(Recipe.class).equalTo("mId", mRecipeId).findFirst();
+                assert recipe != null;
                 recipe.deleteFromRealm();
                 realm.commitTransaction();
 
@@ -129,19 +131,18 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
             recipe.setmTitle(mRecipeName);
             recipe.setmTime(mRecipeTime);
             recipe.setWhenAdded(new Date());
+            recipe.setServings(mRecipeServings);
 
             realm.commitTransaction();
             Toast.makeText(this, "Your starred recipe was added", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Toast.makeText(this, "Something went wrong, retry later.", Toast.LENGTH_SHORT).show();
-            Log.i("INFO", e.getMessage());
         }
     }
 
     private boolean alreadyAdded() {
         boolean flag = true;
         try {
-
             Realm realm = Realm.getDefaultInstance();// opens "myrealm.realm"
             RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll().sort("mId");
             List<Recipe> recipeList = realm.copyFromRealm(recipes);
@@ -149,12 +150,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
             if(index == -1){
                 flag = false;
             }
-
-            Log.i("Starredfunc", flag + "");
             return flag;
         }catch (Exception e){
-            Log.i("INFO", e.getMessage());
-
+            error();
             return flag;
         }
     }
@@ -171,9 +169,11 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     @Override
     public void showIngredients(IngredResponse responses) {
         this.responses = responses;
+
         mRecipeAdapter =  new RecipeAdapter(responses, this);
         mRecyclerView.setAdapter(mRecipeAdapter);
         Images.loadRecipe(mImageView, mRecipeId, "636x393");
+        mServingsTV.setText(getResources().getString(R.string.servings, mRecipeName, mRecipeServings));
     }
 
     @Override
@@ -205,12 +205,32 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
                 mMenu.getItem(0).setIcon(R.drawable.ic_star_white_24dp);
             }
         }
+        if (item.getItemId() == R.id.copy){
+            copyIngredients();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void copyIngredients() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < this.responses.getmIngredients().size(); i++) {
+            builder.append(responses.getmIngredients().get(i).getmName());
+            String str = " ";
+            builder.append(str);
+            builder.append(responses.getmIngredients().get(i).getmAmount().getmMetrics().getmValue());
+            builder.append(str);
+            builder.append(responses.getmIngredients().get(i).getmAmount().getmMetrics().getmUnit());
+            builder.append("\n");
+        }
+        ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        myClipboard.setPrimaryClip(ClipData.newPlainText("",builder.toString()));
+        Toast.makeText(this, "Ingredients list copied to clipboard", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void error() {
-        Snackbar snackbar = Snackbar.make(mRecyclerView,"Something went wrong", Snackbar.LENGTH_LONG)
+        Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                 .setAction("Try again", action -> mRecipePresenter.init(mRecipeId));
         snackbar.setDuration(4000);
         snackbar.show();

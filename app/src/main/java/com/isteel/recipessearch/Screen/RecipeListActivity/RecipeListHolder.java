@@ -57,6 +57,7 @@ public class RecipeListHolder extends RecyclerView.ViewHolder implements View.On
         intent.putExtra("RECIPE_ID", mRecipe.getmId());
         intent.putExtra("RECIPE_NAME", mRecipe.getmTitle());
         intent.putExtra("RECIPE_TIME", mRecipe.getmTime());
+        intent.putExtra("RECIPE_SERVINGS", mRecipe.getServings());
 
         view.getContext().startActivity(intent);
     }

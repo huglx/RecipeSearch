@@ -13,12 +13,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Screen.StarredActivity.StarredActivity"></activity>
+        <activity android:name=".Screen.RecipeListActivity.AboutActivity" android:theme="@style/AboutActivityTheme"></activity>
+        <activity android:name=".Screen.StarredActivity.StarredActivity" />
         <activity android:name=".Screen.Recipe.RecipeActivity" />
-        <activity android:name=".Screen.RecipeListActivity.RecipeListActivity">
+        <activity
+            android:name=".Screen.RecipeListActivity.RecipeListActivity"
+            android:theme="@style/LaunchTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

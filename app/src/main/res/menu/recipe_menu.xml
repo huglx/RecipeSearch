@@ -5,6 +5,13 @@
         android:id="@+id/starrItem"
         android:icon="@drawable/ic_star_border_white_24dp"
         android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:title="starItem" />
+
+    <item
+        android:id="@+id/copy"
+        android:icon="@drawable/ic_content_copy_white_24dp"
+        android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="TODO" />
+        android:title="copyItem" />
 </menu>

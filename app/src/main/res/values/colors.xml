@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#7f0000</color>
     <color name="colorAccent">#ff7450</color>
     <color name="colorShadow">#000</color>
+    <color name="colorYellow">#EABA6A</color>
     <color name="secondary">#fff</color>
     <color name="transpr">#000000ff</color>
 

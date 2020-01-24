@@ -13,17 +13,17 @@ import retrofit2.http.Query;
 
 public interface DefaultRecipeService {
     @GET("{id}/ingredientWidget.json?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65")
-    Observable<IngredResponse> ingredients(@Path("id") String str);
+    Observable<IngredResponse> ingredients(@Path("id") String id);
 
     @GET("search?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65&number=99")
-    Observable<RecipeResponse> recipe(@Query("diet") String str);
+    Observable<RecipeResponse> recipe(@Query("diet") String diet);
 
     @GET("search?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65&number=99")
-    Observable<RecipeResponse> recipe(@Query("query") String str, @Query("diet") String str2);
+    Observable<RecipeResponse> recipe(@Query("query") String query, @Query("diet") String diet);
 
     @GET("{id}/information?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65")
-    Observable<Recipe> recipeInfo(@Path("id") String str);
+    Observable<Recipe> recipeInfo(@Path("id") String id);
 
     @GET("{id}/analyzedInstructions?apiKey=6bbcc5cb6b1b46f9986d188fd72c1d65")
-    Observable<List<ResponseStep>> steps(@Path("id") String str);
+    Observable<List<ResponseStep>> steps(@Path("id") String id);
 }

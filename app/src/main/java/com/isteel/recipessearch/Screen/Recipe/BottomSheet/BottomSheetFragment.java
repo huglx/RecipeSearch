@@ -1,5 +1,6 @@
 package com.isteel.recipessearch.Screen.Recipe.BottomSheet;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,11 +33,24 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     RecyclerView mRecyclerView;
 
     private ResponseStep mResult;
+    private Context mContext;
     private IngredResponse responses;
     private BottomSheetAdapter mBottomSheetAdapter;
 
     public BottomSheetFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mContext = null;
     }
 
     @Override
@@ -54,12 +68,13 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             this.mResult = (ResponseStep) bundle.getSerializable("content");
         }
 
-        //  mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setHasFixedSize(true);
+        if(mContext != null) {
+            //  mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL, false));
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            mRecyclerView.setHasFixedSize(true);
 
-        mBottomSheetAdapter = new BottomSheetAdapter(mResult, getActivity());
-
+            mBottomSheetAdapter = new BottomSheetAdapter(mResult, mContext);
+        }
         mRecyclerView.setAdapter(mBottomSheetAdapter);
         // Inflate the layout for this fragment
         return view;

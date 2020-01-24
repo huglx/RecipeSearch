@@ -3,6 +3,7 @@ package com.isteel.recipessearch;
 import android.app.Application;
 
 import com.isteel.recipessearch.Repository.RepositoryProvider;
+import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListActivity;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 
@@ -14,8 +15,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().name("steel.realm").build();
+        RealmConfiguration config = new RealmConfiguration.Builder().name("steeL.realm").build();
         Realm.setDefaultConfiguration(config);
 
         Hawk.init(this)
