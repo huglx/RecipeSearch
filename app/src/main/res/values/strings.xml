@@ -2,7 +2,10 @@
     <string name="app_name">RecipesSearch</string>
     <string name="loading">Making Coffee... I Meant Working</string>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
     <string name="cook_time">Under %1$s min.</string>
     <string name="step_by_step">Step-by-step</string>
     <string name="step_number">step_number</string>
@@ -17,5 +20,8 @@
     <string name="about">About</string>
     <string name="text_about">This app is made by young russian developer</string>
     <string name="email">email</string>
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 </resources>

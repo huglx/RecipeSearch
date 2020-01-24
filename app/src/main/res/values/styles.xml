@@ -26,6 +26,14 @@
         <item name="colorPrimaryDark">@color/colorShadow</item>
         <item name="android:fontFamily">@font/rubik_regular</item>
     </style>
+<<<<<<< HEAD
+=======
+
+    <style name="LaunchTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@drawable/launch</item>
+    </style>
+>>>>>>> 3a0da9f... version 1.25.01
 
     <style name="LaunchTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->

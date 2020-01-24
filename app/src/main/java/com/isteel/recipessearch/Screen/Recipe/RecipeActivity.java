@@ -18,6 +18,9 @@ import android.widget.Button;
 =======
 import android.view.Menu;
 import android.view.MenuItem;
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,12 +28,16 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
 =======
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
+=======
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+>>>>>>> 3a0da9f... version 1.25.01
 import com.google.android.material.snackbar.Snackbar;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
@@ -72,9 +79,12 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     @BindView(R.id.imageToolbar)
     ImageView mImageView;
 <<<<<<< HEAD
+<<<<<<< HEAD
     @BindView(R.id.action_button)
     FloatingActionButton mStarButton;
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
     @BindView(R.id.servings)
     TextView mServingsTV;
     @BindView(R.id.stepsMode)
@@ -109,6 +119,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
         mRecipeName = getIntent().getStringExtra("RECIPE_NAME");
         mRecipeTime = getIntent().getStringExtra("RECIPE_TIME");
         mRecipeServings = getIntent().getStringExtra("RECIPE_SERVINGS");
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 
         setSupportActionBar(mToolbar);
@@ -175,6 +188,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
             Toast.makeText(this, "Your starred recipe was added", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Toast.makeText(this, "Something went wrong, retry later.", Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
         }
 

@@ -12,7 +12,10 @@ public class Recipe extends RealmObject {
     private String mId;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
     @SerializedName("servings")
     private String servings;
 
@@ -68,5 +71,8 @@ public class Recipe extends RealmObject {
     public void setServings(String servings) {
         this.servings = servings;
     }
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 }

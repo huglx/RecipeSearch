@@ -27,7 +27,10 @@
             android:text="@string/app_name"/>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/time_img"
             android:layout_marginTop="22dp"

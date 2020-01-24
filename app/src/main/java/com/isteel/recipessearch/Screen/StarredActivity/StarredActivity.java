@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.google.android.material.snackbar.BaseTransientBottomBar;
+=======
+>>>>>>> 3a0da9f... version 1.25.01
 import com.google.android.material.snackbar.Snackbar;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Result;
@@ -20,6 +23,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 import java.util.List;
 
@@ -53,6 +59,7 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
         try (Realm realm = Realm.getDefaultInstance()) {
             RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll();
 <<<<<<< HEAD
+<<<<<<< HEAD
             List<Recipe> recipeList = realm.copyFromRealm(recipes);
             mAdapter = new StarredAdapter(recipeList, this);
             mRecyclerView.setAdapter(mAdapter);
@@ -63,6 +70,11 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
             Comparator<Recipe> compareByDate = (Recipe o1, Recipe o2) ->
                     o2.getWhenAdded().compareTo( o1.getWhenAdded() );
             List<Recipe> recipeList = realm.copyFromRealm(recipes);
+=======
+            Comparator<Recipe> compareByDate = (Recipe o1, Recipe o2) ->
+                    o2.getWhenAdded().compareTo( o1.getWhenAdded() );
+            List<Recipe> recipeList = realm.copyFromRealm(recipes);
+>>>>>>> 3a0da9f... version 1.25.01
             Collections.sort(recipeList, compareByDate);
             Log.i("INFO", Arrays.toString(recipeList.toArray()));
 
@@ -71,7 +83,12 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
         } catch (Exception e) {
             Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                     .setAction("Try again", action -> getCachedRecipe());
+<<<<<<< HEAD
             snackbar.setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE);
+            snackbar.show();
+>>>>>>> 3a0da9f... version 1.25.01
+=======
+            snackbar.setDuration(4000);
             snackbar.show();
 >>>>>>> 3a0da9f... version 1.25.01
         }

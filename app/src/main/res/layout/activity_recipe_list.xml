@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 <<<<<<< HEAD
+<<<<<<< HEAD
     tools:context=".Screen.RecipeListActivity.RecipeListActivity">
 
     <FrameLayout
@@ -25,6 +26,8 @@
 
     </FrameLayout>
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 >>>>>>> 3a0da9f... version 1.25.01
@@ -50,6 +53,9 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/drawer_layout_menu" />
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 
 </RelativeLayout>

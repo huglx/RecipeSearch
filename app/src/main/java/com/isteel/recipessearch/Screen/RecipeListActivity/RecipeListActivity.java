@@ -4,6 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LifecycleOwner;
+>>>>>>> 3a0da9f... version 1.25.01
 =======
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -35,8 +41,11 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.isteel.recipessearch.Content.Result;
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.RecipeResponse;
 >>>>>>> 3a0da9f... version 1.25.01
@@ -46,9 +55,12 @@ import com.isteel.recipessearch.Screen.StarredActivity.StarredActivity;
 import com.isteel.recipessearch.Screen.general.LoadingDialog;
 import com.isteel.recipessearch.Screen.general.LoadingView;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
 import com.isteel.recipessearch.utils.KeyValueStorage;
 import com.isteel.recipessearch.utils.TypeSearchPrefence;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -84,13 +96,21 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 =======
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+<<<<<<< HEAD
     @BindView(R.id.error)
     View mError;
+=======
+//    @BindView(R.id.error_screen)
+    AppCompatImageView mError;
+>>>>>>> 3a0da9f... version 1.25.01
 
     @OnClick(R.id.diet_picker)
     public void diet() {
         setPicker();
     }
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 
     @Override
@@ -103,9 +123,12 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 
         setSupportActionBar(mToolbar);
 <<<<<<< HEAD
+<<<<<<< HEAD
         getSupportActionBar().setTitle("Recipe search");
         mToolbar.setTitleTextColor(Color.parseColor("#fafafa")); //setting toolbar
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
         getSupportActionBar().setTitle("Recipes");
         mToolbar.setTitleTextColor(Color.parseColor("#ffffff")); //setting toolbar
         // mRecipeListAdapter = new RecipeAdapter(new Result());
@@ -140,6 +163,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     private void setButtonListener() {
         mActionButton.setOnClickListener(view -> {
 <<<<<<< HEAD
+<<<<<<< HEAD
         new CountDownTimer(500, 500) { //timer for a small delay in animation to make it look more nicer
 
             public void onTick(long millisUntilFinished) {
@@ -151,6 +175,8 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
                 Intent intent = new Intent(view.getContext(), StarredActivity.class);
                 startActivity(intent);
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
             Intent intent = new Intent(view.getContext(), StarredActivity.class);
             startActivity(intent);
         });
@@ -183,6 +209,9 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 <<<<<<< HEAD
 =======
         builder.show();
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
     }
 
@@ -215,6 +244,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void show(Result recipes) {
         Log.i("234444", recipes.getmRecipe().get(0).getmTitle());
         mRecipeListAdapter = new RecipeListAdapter(recipes, this);
@@ -238,6 +268,24 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     public void error() {
         mRecyclerView.setVisibility(View.GONE);
         mError.setVisibility(View.VISIBLE);
+=======
+    public void showRecipeList(RecipeResponse recipes) {
+
+        if(recipes.getmRecipe() != null) {
+            mRecipeResponse.getmRecipe().clear();
+            mRecipeResponse.setmRecipe(recipes.getmRecipe());
+            mRecyclerView.getLayoutManager().scrollToPosition(0);
+            mRecipeListAdapter.notifyDataSetChanged();
+        }else error();
+    }
+
+    @Override
+    public void error() {/*
+        mRecyclerView.setVisibility(View.GONE);
+        mActionButton.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);*/
+>>>>>>> 3a0da9f... version 1.25.01
         Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                 .setAction("Try again", action -> mRecipeListPresenter.init());
         snackbar.setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE);
@@ -295,5 +343,8 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         }
     }
 
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
 }

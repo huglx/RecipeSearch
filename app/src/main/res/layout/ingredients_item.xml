@@ -5,14 +5,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <TextView
             android:layout_marginEnd="10dp"
 =======
+=======
+>>>>>>> 3a0da9f... version 1.25.01
 
         <TextView
             style="@style/SubTitleTextStyle"
             android:layout_margin="8dp"
             android:text="@string/ingredients_value"
+<<<<<<< HEAD
+>>>>>>> 3a0da9f... version 1.25.01
+=======
 >>>>>>> 3a0da9f... version 1.25.01
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
@@ -20,7 +26,13 @@
             android:id="@+id/value"/>
         <TextView
 <<<<<<< HEAD
+<<<<<<< HEAD
             android:layout_marginStart="10dp"
+=======
+            style="@style/TitleTextStyle"
+            android:layout_margin="8dp"
+            android:text="@string/ingredient"
+>>>>>>> 3a0da9f... version 1.25.01
 =======
             style="@style/TitleTextStyle"
             android:layout_margin="8dp"

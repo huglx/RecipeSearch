@@ -1,5 +1,9 @@
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/colorAccent">
+<<<<<<< HEAD
     <item android:drawable="@drawable/error"/>
+=======
+    <item android:drawable="@drawable/error_srceen"/>
+>>>>>>> 3a0da9f... version 1.25.01
 </ripple>
