@@ -40,7 +40,7 @@ public class StarredHolder extends RecyclerView.ViewHolder implements View.OnCli
         Intent intent = new Intent(view.getContext(), RecipeActivity.class);
         intent.putExtra("RECIPE_ID", mRecipe.getmId());
         intent.putExtra("RECIPE_NAME", mRecipe.getmTitle());
-
+        intent.putExtra("RECIPE_SERVINGS", mRecipe.getServings());
 
         view.getContext().startActivity(intent);
     }

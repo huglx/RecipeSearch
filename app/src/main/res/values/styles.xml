@@ -7,9 +7,63 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+<<<<<<< HEAD
+=======
+
+    <style name="AboutActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/AboutTextStyle</item>
+        <item name="colorPrimaryDark">@color/colorShadow</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="LaunchTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@drawable/launch</item>
+    </style>
+
+>>>>>>> 3a0da9f... version 1.25.01
     <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
         <item name="android:textColor">@android:color/transparent</item>
         <item name="android:textSize">0sp</item>
     </style>
 
+<<<<<<< HEAD
+=======
+    <style name="TitleTextStyle">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textColor">@color/colorShadow</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="SubTitleTextStyle">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="AboutTextStyle">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="FloatingActionButton">
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:tint">@color/secondary</item>
+    </style>
+
+    <style name="TootBarTextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="DialogTheme" parent="android:Theme.Dialog">
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transpr</item>
+    </style>
+
+>>>>>>> 3a0da9f... version 1.25.01
 </resources>

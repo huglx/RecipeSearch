@@ -7,11 +7,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Result;
 import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListAdapter;
 
+<<<<<<< HEAD
+=======
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+>>>>>>> 3a0da9f... version 1.25.01
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,12 +51,28 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
         // opens "myrealm.realm"
         try (Realm realm = Realm.getDefaultInstance()) {
             RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll();
+<<<<<<< HEAD
             List<Recipe> recipeList = realm.copyFromRealm(recipes);
             mAdapter = new StarredAdapter(recipeList, this);
             mRecyclerView.setAdapter(mAdapter);
             // Toast.makeText(this, ""+recipes.get(0).getmId(), Toast.LENGTH_SHORT).show();
         } catch (Exception ignored) {
 
+=======
+            Comparator<Recipe> compareByDate = (Recipe o1, Recipe o2) ->
+                    o2.getWhenAdded().compareTo( o1.getWhenAdded() );
+            List<Recipe> recipeList = realm.copyFromRealm(recipes);
+            Collections.sort(recipeList, compareByDate);
+            Log.i("INFO", Arrays.toString(recipeList.toArray()));
+
+            mAdapter = new StarredAdapter(recipeList, this);
+            mRecyclerView.setAdapter(mAdapter);
+        } catch (Exception e) {
+            Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
+                    .setAction("Try again", action -> getCachedRecipe());
+            snackbar.setDuration(4000);
+            snackbar.show();
+>>>>>>> 3a0da9f... version 1.25.01
         }
     }
 

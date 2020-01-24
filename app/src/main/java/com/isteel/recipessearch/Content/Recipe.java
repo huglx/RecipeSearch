@@ -11,6 +11,14 @@ public class Recipe extends RealmObject {
     @SerializedName("id")
     private String mId;
 
+<<<<<<< HEAD
+=======
+    @SerializedName("servings")
+    private String servings;
+
+    private Date whenAdded;
+
+>>>>>>> 3a0da9f... version 1.25.01
     public String getmId() {
         return mId;
     }
@@ -34,4 +42,31 @@ public class Recipe extends RealmObject {
 
     public Recipe() {
     }
+<<<<<<< HEAD
+=======
+
+    public String getHealthScore() {
+        return healthScore;
+    }
+
+    public void setHealthScore(String healthScore) {
+        this.healthScore = healthScore;
+    }
+
+    public Date getWhenAdded() {
+        return whenAdded;
+    }
+
+    public void setWhenAdded(Date whenAdded) {
+        this.whenAdded = whenAdded;
+    }
+
+    public String getServings() {
+        return servings;
+    }
+
+    public void setServings(String servings) {
+        this.servings = servings;
+    }
+>>>>>>> 3a0da9f... version 1.25.01
 }

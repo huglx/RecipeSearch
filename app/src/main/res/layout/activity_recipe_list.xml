@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".Screen.RecipeListActivity.RecipeListActivity">
 
     <FrameLayout
@@ -23,6 +24,10 @@
             android:layout_height="wrap_content" />
 
     </FrameLayout>
+=======
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+>>>>>>> 3a0da9f... version 1.25.01
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/toolbar_container"
@@ -33,10 +38,18 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/action_button"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_star_white_24dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp" />
+=======
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/drawer_layout_menu" />
+>>>>>>> 3a0da9f... version 1.25.01
 
 </RelativeLayout>
