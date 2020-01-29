@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Result;
@@ -70,7 +71,7 @@ public class StarredActivity extends AppCompatActivity implements StarredView{
         } catch (Exception e) {
             Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                     .setAction("Try again", action -> getCachedRecipe());
-            snackbar.setDuration(4000);
+            snackbar.setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE);
             snackbar.show();
 >>>>>>> 3a0da9f... version 1.25.01
         }

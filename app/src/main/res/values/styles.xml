@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<<<<<<< HEAD
+=======
+        <item name="colorOnSecondary">@color/secondary</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+        <!-- enable overlapping of exiting and entering activities-->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+>>>>>>> c1d00ca... added:  error handling version 1.29.01
     </style>
 <<<<<<< HEAD
 =======
@@ -46,6 +56,8 @@
     </style>
 
     <style name="FloatingActionButton">
+        <item name="borderWidth">0dp</item>
+        <item name="android:elevation">36dp</item>
         <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:tint">@color/secondary</item>
     </style>
