@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
@@ -232,7 +233,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     public void error() {
         Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                 .setAction("Try again", action -> mRecipePresenter.init(mRecipeId));
-        snackbar.setDuration(4000);
+        snackbar.setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE);
         snackbar.show();
     }
 

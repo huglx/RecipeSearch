@@ -30,6 +30,7 @@ import android.widget.Button;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.isteel.recipessearch.Content.Recipe;
@@ -74,8 +75,8 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     FloatingActionButton mActionButton;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
-//    @BindView(R.id.error_screen)
-    AppCompatImageView mError;
+    @BindView(R.id.error)
+    View mError;
 
     @OnClick(R.id.diet_picker)
     public void diet() {
@@ -136,10 +137,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
                     mStorage.setType(TypeSearchPrefence.TYPE_VEG);
                     mRecipeListPresenter.init();
                     break;
-                case 2:
-                    break;
-                case 3:
-                    break;
             }
         });
         builder.show();
@@ -150,7 +147,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mRecipeListPresenter.querySearch(query);
-
                 return true;
             }
 
@@ -175,24 +171,25 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 
     @Override
     public void showRecipeList(RecipeResponse recipes) {
-
         if(recipes.getmRecipe() != null) {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mError.setVisibility(View.GONE);
+
             mRecipeResponse.getmRecipe().clear();
             mRecipeResponse.setmRecipe(recipes.getmRecipe());
+
             mRecyclerView.getLayoutManager().scrollToPosition(0);
             mRecipeListAdapter.notifyDataSetChanged();
         }else error();
     }
 
     @Override
-    public void error() {/*
+    public void error() {
         mRecyclerView.setVisibility(View.GONE);
-        mActionButton.setVisibility(View.GONE);
-        mToolbar.setVisibility(View.GONE);
-        mError.setVisibility(View.VISIBLE);*/
+        mError.setVisibility(View.VISIBLE);
         Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                 .setAction("Try again", action -> mRecipeListPresenter.init());
-        snackbar.setDuration(4000);
+        snackbar.setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE);
         snackbar.show();
         //Log.i("Error RLA", throwable.getMessage()+"");
     }
