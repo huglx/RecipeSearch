@@ -6,20 +6,13 @@ import com.isteel.recipessearch.Api.ApiFactory;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.RecipeResponse;
 import com.isteel.recipessearch.Content.Steps.Ingredients.IngredResponse;
-import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 import com.isteel.recipessearch.Content.Steps.ResponseStep;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import io.realm.Realm;
-import io.realm.RealmModel;
-import io.realm.RealmObject;
-import io.realm.RealmResults;
-import ru.arturvasilov.rxloader.RxUtils;
 
 public class DefaultRecipeRepository implements RecipeRepository {
 

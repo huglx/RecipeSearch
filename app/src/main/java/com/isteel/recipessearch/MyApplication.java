@@ -3,13 +3,10 @@ package com.isteel.recipessearch;
 import android.app.Application;
 
 import com.isteel.recipessearch.Repository.RepositoryProvider;
-import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListActivity;
 import com.orhanobut.hawk.Hawk;
-import com.orhanobut.hawk.HawkBuilder;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.log.LogLevel;
 
 public class MyApplication extends Application {
     @Override

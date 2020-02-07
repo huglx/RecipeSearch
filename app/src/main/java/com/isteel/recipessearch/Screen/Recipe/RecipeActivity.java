@@ -3,6 +3,7 @@ package com.isteel.recipessearch.Screen.Recipe;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,9 +11,9 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,10 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
     TextView mServingsTV;
     @BindView(R.id.stepsMode)
     ExtendedFloatingActionButton mStepsButton;
+    @BindView(R.id.nestedScrollView)
+    NestedScrollView mNestedScrollView;
+    @BindView(R.id.error)
+    View mError;
 
     private Menu mMenu;
 
@@ -78,8 +83,6 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
         //init presenter
         mRecipePresenter.initStepsMode(mRecipeId);
     }
-
-//    TODO Design main page/ step modex
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +97,6 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
         mRecipeServings = getIntent().getStringExtra("RECIPE_SERVINGS");
 
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setTitle(mRecipeName);
         mToolbarLayout.setTitle(mRecipeName);
         mToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
 
@@ -117,8 +119,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
 
                 Toast.makeText(this, "Your starred recipe was deleted", Toast.LENGTH_SHORT).show();
             }catch (Exception e){
-                Toast.makeText(this, "Something went wrong, retry later.", Toast.LENGTH_SHORT).show();
-                Log.i("Error", e.getMessage());
+                Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
             }
     }
 
@@ -160,15 +161,19 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
 
     @Override
     public void initStepsMode(List<ResponseStep> steps) {
-        BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("content", (Serializable) steps.get(0));
-        bottomSheetFragment.setArguments(bundle);
-        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+        if(!steps.isEmpty()) {
+            BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("content", (Serializable) steps.get(0));
+            bottomSheetFragment.setArguments(bundle);
+            bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+        }else error();
     }
 
     @Override
     public void showIngredients(IngredResponse responses) {
+        mError.setVisibility(View.GONE);
+        mNestedScrollView.setVisibility(View.VISIBLE);
         this.responses = responses;
 
         mRecipeAdapter =  new RecipeAdapter(responses, this);
@@ -214,6 +219,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
 
     private void copyIngredients() {
         StringBuilder builder = new StringBuilder();
+
         for (int i = 0; i < this.responses.getmIngredients().size(); i++) {
             builder.append(responses.getmIngredients().get(i).getmName());
             String str = " ";
@@ -223,6 +229,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
             builder.append(responses.getmIngredients().get(i).getmAmount().getmMetrics().getmUnit());
             builder.append("\n");
         }
+
         ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         myClipboard.setPrimaryClip(ClipData.newPlainText("",builder.toString()));
         Toast.makeText(this, "Ingredients list copied to clipboard", Toast.LENGTH_SHORT).show();
@@ -231,6 +238,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeView{
 
     @Override
     public void error() {
+        mError.setVisibility(View.VISIBLE);
+        mNestedScrollView.setVisibility(View.GONE);
+
         Snackbar snackbar = Snackbar.make(mRecyclerView,R.string.error, Snackbar.LENGTH_LONG)
                 .setAction("Try again", action -> mRecipePresenter.init(mRecipeId));
         snackbar.setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE);

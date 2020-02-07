@@ -12,11 +12,9 @@ import com.isteel.recipessearch.R;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder>{
     IngredResponse mResult;
-    private Context mContext;
 
     public RecipeAdapter(@NonNull IngredResponse mResult, @NonNull Context context) {
         this.mResult = mResult;
-        mContext = context;
     }
 
     @NonNull

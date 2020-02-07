@@ -1,7 +1,5 @@
 package com.isteel.recipessearch.Api;
 
-import com.isteel.recipessearch.BuildConfig;
-
 import java.io.IOException;
 
 import okhttp3.HttpUrl;

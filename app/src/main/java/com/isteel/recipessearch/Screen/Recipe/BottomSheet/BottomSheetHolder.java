@@ -6,7 +6,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.isteel.recipessearch.Content.Steps.Ingredients.Ingredients;
 import com.isteel.recipessearch.Content.Steps.Step;
 import com.isteel.recipessearch.R;
 

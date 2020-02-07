@@ -1,18 +1,14 @@
 package com.isteel.recipessearch.Screen.RecipeListActivity;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.drawable.IconCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.isteel.recipessearch.Content.Recipe;
@@ -20,7 +16,6 @@ import com.isteel.recipessearch.R;
 import com.isteel.recipessearch.Screen.Recipe.RecipeActivity;
 import com.isteel.recipessearch.utils.Images;
 
-import static android.provider.Settings.Secure.getString;
 import static com.isteel.recipessearch.R.string.cook_time;
 
 public class RecipeListHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

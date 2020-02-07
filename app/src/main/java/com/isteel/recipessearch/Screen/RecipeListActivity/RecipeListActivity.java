@@ -4,35 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.viewpager.widget.ViewPager;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 
-import com.google.android.material.button.MaterialButton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.RecipeResponse;
 import com.isteel.recipessearch.R;
@@ -44,9 +38,9 @@ import com.isteel.recipessearch.utils.KeyValueStorage;
 import com.isteel.recipessearch.utils.TypeSearchPrefence;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +51,7 @@ import io.reactivex.disposables.Disposable;
 public class RecipeListActivity extends AppCompatActivity implements RecipeListView, NavigationView.OnNavigationItemSelectedListener {
     RecipeListPresenter mRecipeListPresenter;
     RecipeListAdapter mRecipeListAdapter;
-    private KeyValueStorage mStorage = RepositoryProvider.getmKeyValueStorage();
+    private final KeyValueStorage mStorage = RepositoryProvider.getmKeyValueStorage();
     RecipeResponse mRecipeResponse = new RecipeResponse();
     List<Recipe> recipes = new ArrayList<>();
 
@@ -78,6 +72,9 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     @BindView(R.id.error)
     View mError;
 
+    @BindView(R.id.adView)
+    AdView mAd;
+
     @OnClick(R.id.diet_picker)
     public void diet() {
         setPicker();
@@ -90,14 +87,23 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         setContentView(R.layout.activity_recipe_list);
         ButterKnife.bind(this);
 
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, initializationStatus -> {});
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        // Start loading the ad in the background.
+        mAd.loadAd(adRequest);
+
         mLoadingView = LoadingDialog.view(getSupportFragmentManager());
         createSearchListener();
         setButtonListener();
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Recipes");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Recipes");
         mToolbar.setTitleTextColor(Color.parseColor("#ffffff")); //setting toolbar
-        // mRecipeListAdapter = new RecipeAdapter(new Result());
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -171,14 +177,14 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
 
     @Override
     public void showRecipeList(RecipeResponse recipes) {
-        if(recipes.getmRecipe() != null) {
+        if( !(recipes.getmRecipe().isEmpty() )){
             mRecyclerView.setVisibility(View.VISIBLE);
             mError.setVisibility(View.GONE);
 
             mRecipeResponse.getmRecipe().clear();
             mRecipeResponse.setmRecipe(recipes.getmRecipe());
 
-            mRecyclerView.getLayoutManager().scrollToPosition(0);
+            Objects.requireNonNull(mRecyclerView.getLayoutManager()).scrollToPosition(0);
             mRecipeListAdapter.notifyDataSetChanged();
         }else error();
     }
@@ -191,7 +197,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
                 .setAction("Try again", action -> mRecipeListPresenter.init());
         snackbar.setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE);
         snackbar.show();
-        //Log.i("Error RLA", throwable.getMessage()+"");
     }
 
     @Override

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecipesSearch</string>
+    <string name="app_name">MyRecipes</string>
     <string name="loading">Making Coffee... I Meant Working</string>
     <string name="cook_time">Under %1$s min.</string>
     <string name="step_by_step">Step-by-step</string>

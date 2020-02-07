@@ -1,6 +1,5 @@
 package com.isteel.recipessearch.Screen.general;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,6 +20,7 @@ import com.isteel.recipessearch.R;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.disposables.Disposable;
@@ -38,7 +38,7 @@ public class LoadingDialog extends DialogFragment {
 
     @NonNull
     public static LoadingView view(@NonNull Fragment fragment) {
-        return view(fragment.getFragmentManager());
+        return view(Objects.requireNonNull(fragment.getFragmentManager()));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class LoadingDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_loading, null);
+        View view = Objects.requireNonNull(getActivity()).getLayoutInflater().inflate(R.layout.dialog_loading, null);
         Drawable drawable = getResources().getDrawable(R.drawable.progress_bar, null);
 
         this.mProgressBar = view.findViewById(R.id.progress_circular);
@@ -62,7 +62,7 @@ public class LoadingDialog extends DialogFragment {
         Dialog alertDialog = new Dialog(getActivity());
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.setContentView(view);
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
         return alertDialog;
 

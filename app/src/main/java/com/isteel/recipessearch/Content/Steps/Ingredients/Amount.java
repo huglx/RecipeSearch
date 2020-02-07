@@ -2,8 +2,6 @@ package com.isteel.recipessearch.Content.Steps.Ingredients;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Amount {
     @SerializedName("metric")
     private Metric mMetrics;

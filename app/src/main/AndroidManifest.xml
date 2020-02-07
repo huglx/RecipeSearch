@@ -4,6 +4,7 @@
     package="com.isteel.recipessearch">
 
     <application
+        android:screenOrientation="portrait"
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +14,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4284633383527040~3246635706"/>
         <activity android:name=".Screen.RecipeListActivity.AboutActivity" android:theme="@style/AboutActivityTheme"></activity>
         <activity android:name=".Screen.StarredActivity.StarredActivity" />
         <activity android:name=".Screen.Recipe.RecipeActivity" />

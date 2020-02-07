@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.Content.RecipeResponse;
-import com.isteel.recipessearch.Content.Steps.ResponseStep;
 import com.isteel.recipessearch.R;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListHolder>{

@@ -6,7 +6,6 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.isteel.recipessearch.Repository.RepositoryProvider;
 import com.isteel.recipessearch.utils.KeyValueStorage;
-import com.isteel.recipessearch.utils.TypeSearchPrefence;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 

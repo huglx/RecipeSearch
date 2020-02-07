@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.isteel.recipessearch.Content.Recipe;
 import com.isteel.recipessearch.R;
-import com.isteel.recipessearch.Screen.RecipeListActivity.RecipeListHolder;
 
 import java.util.List;
 

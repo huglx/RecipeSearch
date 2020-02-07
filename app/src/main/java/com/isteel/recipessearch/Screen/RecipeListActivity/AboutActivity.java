@@ -11,7 +11,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.isteel.recipessearch.R;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +25,9 @@ import butterknife.OnClick;
 public class AboutActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.adView)
+    AdView mAd;
+
 
     @OnClick(R.id.emailAbout)
     public void sendEmail() {
@@ -36,8 +44,18 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
 
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, initializationStatus -> {});
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        // Start loading the ad in the background.
+        mAd.loadAd(adRequest);
+
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
 

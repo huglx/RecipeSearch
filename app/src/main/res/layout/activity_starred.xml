@@ -9,7 +9,29 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/toolbar"
+        android:layout_above="@id/adView"
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-4284633383527040/6250544314">
+    </com.google.android.gms.ads.AdView>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/empty"
+        style="@style/SubTitleTextStyle"
+        android:text="No added recipes yet :("
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
 </RelativeLayout>

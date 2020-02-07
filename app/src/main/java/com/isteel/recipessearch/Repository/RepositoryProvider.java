@@ -1,7 +1,6 @@
 package com.isteel.recipessearch.Repository;
 
 import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
 
 import com.isteel.recipessearch.utils.KeyValueStorage;
 import com.isteel.recipessearch.utils.TypeSearchPrefence;

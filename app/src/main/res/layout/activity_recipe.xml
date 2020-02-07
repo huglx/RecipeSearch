@@ -17,7 +17,18 @@
         android:backgroundTint="@color/colorPrimary"
         android:layout_gravity="bottom|center" />
 
+    <FrameLayout
+        android:id="@+id/error"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/empty"/>
+
+    </FrameLayout>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
